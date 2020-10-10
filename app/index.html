@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html ng-app="listaTelefonica">
+    <head>
+        <link href="estilo.css" rel="stylesheet">
+        <script src="C:\Users\Li Duarte\Desktop\anguraestudo\node_modules\angular\angular.js"></script>
+        <link href="C:\Users\Li Duarte\Desktop\anguraestudo\node_modules\bootstrap\dist\css\bootstrap.min.css" rel="stylesheet">
+
+<script>
+    angular.module("listaTelefonica", []);
+    //declara o nome do modulo,colchete é um conjunto de modulos que quer importar, o angular permite fazer a junção de vario modulos, quando usa o colchete traz todos
+
+    angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function($scope){
+      
+        //ng-controller faz o vinculo entre a view e o controller de onde nasce o scope
+        //view é um conjunto de elementos seja div body table
+        //$cope faz a ponte entre a view e a controlle
+        $scope.app="Lista Telefonica";
+        $scope.contatos = [
+            {nome: "Pedro", telefone: "11000992"},
+            {nome:" Pedro", telefone: "11000992"},
+            {nome: "Pedro", telefone: "11000992"}
+
+
+        ]
+        $scope.adicionar = function(contato){
+ //declarar a função adicionar
+            $scope.contatos.push(angular.copy(contato));
+            delete $scope.contato;
+        }
+
+        $scope.operadoras = [
+            {nome: "OI", codigo: 14},
+            {nome: "Vivo", codigo: 14},
+            {nome: "Claro", codigo: 14},
+            {nome: "Tim",codigo: 14}
+        ]
+
+    });
+
+</script>
+    </head>
+    <body ng-controller="listaTelefonicaCtrl">
+<div class="jumbotron">
+      <h4>  {{app}}</h4>
+      <table class="table table-striped">
+        <tr>
+            <th>Nome</th>
+            <th>Telefone</th>
+            <th>Operadora</th>
+        </tr>
+        <tr ng-repeat="contato in contatos ">
+            <td>{{contato.nome}}</td>
+            <td>{{contato.telefone}}</td>
+            <td>{{contato.operadora.nome}}</td>
+
+
+
+        </tr>
+
+      </table>
+      <hr/>
+      <input type="text" ng-model="contato.nome"/>
+      <input type="text" ng-model="contato.telefone"/>
+      <!-- NG-Model faz o papel inverso da  no ng-bind, ng-model leva da view para o scope e o ng-bind leva do
+    scope para view-->
+    <select ng-model="contato.operadora" ng-options="operadora.nome for operadora in operadoras">
+        <option value="">Selecione uma operadora</option>
+    </select>
+     
+      <button class="btn btn-primary" ng-click="adicionar(contato)" ng-disabled="!contato.nome || !contato.telefone">Adicionar Contato</button>
+      <!--ng-d-isabled  serve para desabilitar o botao -->
+    <!--ng-options renderiza as opçoes-->
+    </div>
+    </body>
+</html>
