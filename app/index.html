@@ -29,12 +29,18 @@
         }
 
         $scope.operadoras = [
-            {nome: "OI", codigo: 14},
-            {nome: "Vivo", codigo: 14},
-            {nome: "Claro", codigo: 14},
-            {nome: "Tim",codigo: 14}
+            {nome: "OI", codigo: 14, categoria:"Celular"},
+            {nome: "Vivo", codigo: 14, categoria:"Celular"},
+            {nome: "Claro", codigo: 14 ,categoria:"FIxo"},
+            {nome: "Tim",codigo: 14, categoria:"Fixo"}
         ]
 
+        $scope.class = "selecionado"
+        $scope.apagarContato = function (contatos){
+          $scope.contatos =  contatos.filter(function(contato){
+                if(!contato.selecionado) return contato;
+            });
+        };
     });
 
 </script>
@@ -42,13 +48,15 @@
     <body ng-controller="listaTelefonicaCtrl">
 <div class="jumbotron">
       <h4>  {{app}}</h4>
-      <table class="table table-striped">
+      {{contatos}}
+      <table class="table ">
         <tr>
             <th>Nome</th>
             <th>Telefone</th>
             <th>Operadora</th>
         </tr>
-        <tr ng-repeat="contato in contatos ">
+        <tr ng-class="{selecionado: contato.selecionado} " ng-repeat="contato in contatos ">
+            <td><input type="checkbox" ng-model="contato.selecionado"/></td>
             <td>{{contato.nome}}</td>
             <td>{{contato.telefone}}</td>
             <td>{{contato.operadora.nome}}</td>
@@ -59,17 +67,19 @@
 
       </table>
       <hr/>
-      <input type="text" ng-model="contato.nome"/>
+      <input type="text" ng-model="contato.nome"/><!--Usando NG_MODEL -->
       <input type="text" ng-model="contato.telefone"/>
       <!-- NG-Model faz o papel inverso da  no ng-bind, ng-model leva da view para o scope e o ng-bind leva do
     scope para view-->
-    <select ng-model="contato.operadora" ng-options="operadora.nome for operadora in operadoras">
+    <select ng-model="contato.operadora" ng-options="operadora.nome for operadora in operadoras"><!--NG-OPTIONS-->
         <option value="">Selecione uma operadora</option>
     </select>
-     
+    
       <button class="btn btn-primary" ng-click="adicionar(contato)" ng-disabled="!contato.nome || !contato.telefone">Adicionar Contato</button>
+      <button class="btn btn-Dangeus" ng-click="apagarContato(contatos)" ng-disabled="isContatoSelecionado(contatos)" >Apagar Contato</button>
       <!--ng-d-isabled  serve para desabilitar o botao -->
     <!--ng-options renderiza as opçoes-->
+    <!--ngClass e ngStyle estilos dinamicamente-->
     </div>
     </body>
 </html>
