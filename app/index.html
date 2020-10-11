@@ -76,10 +76,12 @@
     </select>
     
       <button class="btn btn-primary" ng-click="adicionar(contato)" ng-disabled="!contato.nome || !contato.telefone">Adicionar Contato</button>
-      <button class="btn btn-Dangeus" ng-click="apagarContato(contatos)" ng-disabled="isContatoSelecionado(contatos)" >Apagar Contato</button>
+      <button class="btn btn-danger" ng-click="apagarContato(contatos)" ng-disabled="isContatoSelecionado(contatos)" >Apagar Contato</button>
       <!--ng-d-isabled  serve para desabilitar o botao -->
     <!--ng-options renderiza as opçoes-->
     <!--ngClass e ngStyle estilos dinamicamente-->
+    
+   
     </div>
     </body>
 </html>
